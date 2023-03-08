@@ -12,7 +12,7 @@ public class OpenUI {
 
     @Bean
     public OpenAPI customOpenAPI (@Value("${application-description}") String description,
-                                  @Value("${application-version}") String version){
+                                  @Value("1.2") String version){
         return new OpenAPI()
                 .info(new Info()
                         .title("Elasticsearch API")
