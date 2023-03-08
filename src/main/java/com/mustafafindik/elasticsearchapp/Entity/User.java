@@ -11,7 +11,7 @@ import org.springframework.data.elasticsearch.annotations.FieldType;
 
 import java.util.Date;
 
-@Document(indexName = "user")
+@Document(indexName = "users")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -24,6 +24,6 @@ public class User {
     private String surname;
     @Field(name = "adres", type = FieldType.Text)
     private String address;
-    @Field(name = "dogum_tarihi", type = FieldType.Date)
-    private Date birthDay;
+    @Field(name = "dogum_tarihi", type = FieldType.Text)
+    private String birthday;
 }

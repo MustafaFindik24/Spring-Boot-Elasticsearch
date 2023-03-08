@@ -11,4 +11,5 @@ import java.util.List;
 public interface UserRepository extends ElasticsearchRepository<User, String> {
     @Query("{\"bool\": {\"must\": [{\"match\": {\"isim\": \"?0\"}}]}}") //boolean query olarak ad ile örtüşmeli
     List<User> getByCustomQuery(String search);
+    List<User> findByNameLikeOrSurnameLike(String name, String surname);
 }
