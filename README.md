@@ -6,5 +6,14 @@ Java programlama dili ile geliştirilmiş, Apache Lucene alt yapısına sahip, a
 
 # 🎯 Spring Boot uygulamasında Elasticsearch kullanımı
 
+* Spring Boot uygulamasını oluşturduktan sonra pom.xml dosyamızın içerisine Elasticsearch dependency sini ekliyoruz.
 
+```xml
+<dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
+</dependency>
+```
+
+*
 
