@@ -55,3 +55,41 @@ public class User {
     private String birthday;
 }
 ```
+* Daha sonra UserRepository içerisinde iki farklı Query kullanıldı. Bunlardan birisi elasticsearch, diğeri ise Spring Framework ünün içerisinde bulunan query dir.
+
+```java
+
+@Repository
+public interface UserRepository extends ElasticsearchRepository<User, String> {
+    @Query("{\"bool\": {\"must\": [{\"match\": {\"isim\": \"?0\"}}]}}") //boolean query olarak ad ile örtüşmeli
+    List<User> getByCustomQuery(String search);
+    List<User> findByNameLikeOrSurnameLike(String name, String surname);
+}
+```
+* Service sınıfı oluşturulup RESTAPI yazımı sağlandıktan sonra config package içerisinde Swagger entegrasyonu için @Configuration sınıfı oluşturuldu.
+
+```java
+@Configuration
+public class OpenUI {
+
+    @Bean
+    public OpenAPI customOpenAPI (@Value("${application-description}") String description,
+                                  @Value("${application-version}") String version){
+        return new OpenAPI()
+                .info(new Info()
+                        .title("Elasticsearch API")
+                        .version(version)
+                        .description(description)
+                        .license(new License()
+                                .name("Elasticsearch API License")));
+    }
+}
+```
+* Docker-compose dosyasını çalıştırıp uygulamamızı ayağa kaldırdıktan sonra http://localhost:8080/swagger-ui/index.html üzerinden swaggera giriş yapıyoruz.
+
+![image](https://user-images.githubusercontent.com/91599453/224698907-b5967e80-2c42-4509-bacf-a57df5c8c7c8.png)
+
+* Sonrasında eklediğimiz kayıtları listeleyip get metodu ile birlikte spesifik olarak indexlenen documentları getirdiğini görebiliriz.
+
+![image](https://user-images.githubusercontent.com/91599453/224699344-ecd80854-dd0f-4aaa-8a1b-d8da3e2d04d2.png)
+![image](https://user-images.githubusercontent.com/91599453/224699438-506fe09c-d121-4e01-abdb-f71941363c75.png)
